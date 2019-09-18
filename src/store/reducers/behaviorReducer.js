@@ -4,7 +4,7 @@ import * as actionTypes from "../actions/actionTypes";
 
 const initialState = Map({
   showChat: false,
-  selectedTab: "answers"
+  selectedTab: "ans"
 });
 
 const behaviorReducer = {

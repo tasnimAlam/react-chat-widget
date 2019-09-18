@@ -1,8 +1,10 @@
-import {List} from "immutable";
+import { Map, List } from "immutable";
 import { createReducer } from "@utils/store";
 import * as actionTypes from "../actions/actionTypes";
 
-const initialState = List([]);
+const initialState = Map({
+  cards: []
+});
 
 const cardRaducer = {
   [actionTypes.GET_CARDS]: (state, { cards }) =>

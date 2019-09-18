@@ -5,7 +5,6 @@ import Cards from "./components/Cards";
 import Chat from "./components/Chat";
 
 const Messages = props => {
-  console.log(props);
   return (
     <div id="messages" className="rcw-messages-container">
       {props.selectedTab === "ans" ? <Cards /> : <Chat />}

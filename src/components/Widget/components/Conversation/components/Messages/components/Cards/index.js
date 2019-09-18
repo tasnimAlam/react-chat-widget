@@ -3,9 +3,16 @@ import { connect } from "react-redux";
 import { getCards } from "@actions";
 
 const Cards = props => {
-  console.log(props);
-  // useEffect(() => props.dispatch(getCards()), []);
+  useEffect(() => {
+    props.dispatch(getCards());
+  }, []);
   return <div>Cards here</div>;
 };
 
-export default connect()(Cards);
+function mapStateToProps(state) {
+  return {
+    cards: state.cards.cards
+  };
+}
+
+export default connect(mapStateToProps)(Cards);

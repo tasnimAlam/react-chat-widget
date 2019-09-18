@@ -13,8 +13,7 @@ export function onTabSelect(tabName) {
   };
 }
 
-export function getCards() {
-  console.log("inside action");
+export function getCards(url) {
   return {
     type: actions.GET_CARDS,
     cards: ["hello"]
