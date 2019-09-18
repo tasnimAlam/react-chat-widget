@@ -2,8 +2,9 @@ import { createStore, combineReducers } from "redux";
 
 import behavior from "./reducers/behaviorReducer";
 import messages from "./reducers/messagesReducer";
+import card from "./reducers/cardReducer";
 
-const reducer = combineReducers({ behavior, messages });
+const reducer = combineReducers({ behavior, messages, card });
 
 export default createStore(
   reducer,

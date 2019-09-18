@@ -12,3 +12,11 @@ export function onTabSelect(tabName) {
     tabName
   };
 }
+
+export function getCards() {
+  console.log("inside action");
+  return {
+    type: actions.GET_CARDS,
+    cards: ["hello"]
+  };
+}
