@@ -12,7 +12,12 @@
 		"test": "jest --coverage",
 		"prepublishOnly": "npm run test && npm run build"
 	},
-	"keywords": ["react", "chat", "widget", "javascript"],
+	"keywords": [
+		"react",
+		"chat",
+		"widget",
+		"javascript"
+	],
 	"dependencies": {
 		"immutable": "^3.8.1",
 		"markdown-it": "^8.4.1",

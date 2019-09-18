@@ -1,7 +1,6 @@
 import { List } from "immutable";
 import { createReducer } from "@utils/store";
 
-
 const initialState = List([]);
 
 const messagesReducer = {};

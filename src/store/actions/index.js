@@ -5,3 +5,10 @@ export function toggleChat() {
     type: actions.TOGGLE_CHAT
   };
 }
+
+export function onTabSelect(tabName) {
+  return {
+    type: actions.SELECTED_TAB,
+    tabName
+  };
+}
