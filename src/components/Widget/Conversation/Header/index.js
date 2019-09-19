@@ -5,10 +5,10 @@ import "./style.scss";
 
 const Header = props => {
 	return (
-		<div className="rcw-header">
-			<div>
-				{TABS.map(item => (
-					<Tab label={item.label} value={item.value} />
+		<div className="rcw-header-wrapper">
+			<div className="rcw-header">
+				{TABS.map((item, index) => (
+					<Tab key={index} label={item.label} value={item.value} />
 				))}
 			</div>
 		</div>

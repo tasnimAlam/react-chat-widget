@@ -1,3 +1,18 @@
+.rcw-header {
+	display: flex;
+	flex-direction: row !important;
+	justify-content: space-around !important;
+}
+
+.rcw-tab-wrapper:hover {
+	cursor: pointer;
+}
+
+.rcw-tab {
+	padding: 5px 20px;
+	border-radius: 20px;
+}
+
 .is-active {
 	background-color: #00bcd4;
 }

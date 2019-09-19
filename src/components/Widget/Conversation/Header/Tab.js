@@ -3,14 +3,16 @@ import { connect } from "react-redux";
 import { onTabSelect } from "@actions";
 
 const Tab = props => (
-	<span
-		className={`rcw-tab ${
-			props.selectedTab === props.value ? "is-active" : ""
-		}`}
-		onClick={() => props.dispatch(onTabSelect(props.value))}
-	>
-		{props.label}
-	</span>
+	<div className="rcw-tab-wrapper">
+		<span
+			className={`rcw-tab ${
+				props.selectedTab === props.value ? "is-active" : ""
+			}`}
+			onClick={() => props.dispatch(onTabSelect(props.value))}
+		>
+			{props.label}
+		</span>
+	</div>
 );
 
 function mapStateToProps(state) {
