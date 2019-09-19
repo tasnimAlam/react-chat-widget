@@ -1,6 +1,5 @@
 import React from "react";
 import Tab from "./Tab";
-import "./style.scss";
 
 const Header = props => {
   return (

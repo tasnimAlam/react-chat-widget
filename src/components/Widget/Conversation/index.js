@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "./Header";
-import Messages from "./components/Messages";
+import Messages from "./Messages";
 import "./style.scss";
 
 const Conversation = props => (

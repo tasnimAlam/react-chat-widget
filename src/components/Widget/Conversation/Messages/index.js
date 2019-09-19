@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import "./styles.scss";
-import Cards from "./components/Cards";
-import Chat from "./components/Chat";
+import Cards from "./Cards";
+import Chat from "./Chat";
 
 const Messages = props => {
   return (
