@@ -10,12 +10,21 @@ const Cards = props => {
     axios.get(url).then(res => props.dispatch(getCards(res.data)));
   }, []);
 
-  return <div>Cards here</div>;
+  return (
+    <div>
+      {props.cards.map(card => (
+        <div key={card.id}>
+          <h1>{card.title}</h1>
+          <p>{card.body}</p>
+        </div>
+      ))}
+    </div>
+  );
 };
 
 function mapStateToProps(state) {
   return {
-    card: state.card.cards
+    cards: state.card.get("cards")
   };
 }
 
