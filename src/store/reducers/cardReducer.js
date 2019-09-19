@@ -7,10 +7,8 @@ const initialState = Map({
 });
 
 const cardRaducer = {
-  [actionTypes.GET_CARDS]: (state, { cards }) => {
-    console.log(cards);
-    return state.update("cards", data => cards);
-  }
+  [actionTypes.GET_CARDS]: (state, { cards }) =>
+    state.update("cards", data => cards)
 };
 
 export default (state = initialState, action) =>

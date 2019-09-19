@@ -1,6 +1,4 @@
 import * as actions from "./actionTypes";
-import { useDispatch } from "react-redux";
-import axios from "axios";
 
 export function toggleChat() {
   return {
@@ -15,9 +13,9 @@ export function onTabSelect(tabName) {
   };
 }
 
-export function getCards(url) {
+export function getCards(cards) {
   return {
     type: actions.GET_CARDS,
-    cards: [1, 2, 3, 4, 5]
+    cards: cards
   };
 }
