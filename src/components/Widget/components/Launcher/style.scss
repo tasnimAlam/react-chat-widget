@@ -1,6 +1,6 @@
-@import 'common.scss';
-@import 'variables.scss';
-@import 'animation.scss';
+@import "common.scss";
+@import "variables.scss";
+@import "animation.scss";
 
 .rcw-launcher {
   @include animation(0, 0.5s, slide-in);
@@ -27,12 +27,27 @@
   @include animation(0, 0.5s, rotation-lr);
 }
 
-@media screen and (max-width: 800px){
+@media screen and (max-width: 800px) {
   .rcw-launcher {
     @include launcher-fs;
   }
 
   .rcw-hide-sm {
     display: none;
+  }
+}
+
+.rcw-launcher {
+  .rcw-badge {
+    position: fixed;
+    top: -10px;
+    right: -5px;
+    background-color: $red;
+    color: $white;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    line-height: 25px;
+    border-radius: 50%;
   }
 }
