@@ -7,7 +7,7 @@ import { toggleChat } from "@actions";
 import WidgetLayout from "./layout";
 
 class Widget extends Component {
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.fullScreenMode) {
       this.props.dispatch(toggleChat());
     }
