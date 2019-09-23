@@ -1,21 +1,27 @@
 import * as actions from "./actionTypes";
 
 export function toggleChat() {
-  return {
-    type: actions.TOGGLE_CHAT
-  };
+	return {
+		type: actions.TOGGLE_CHAT
+	};
 }
 
 export function onTabSelect(tabName) {
-  return {
-    type: actions.SELECTED_TAB,
-    tabName
-  };
+	return {
+		type: actions.SELECTED_TAB,
+		tabName
+	};
 }
 
 export function getCards(cards) {
-  return {
-    type: actions.GET_CARDS,
-    cards: cards
-  };
+	return {
+		type: actions.GET_CARDS,
+		cards: cards
+	};
+}
+
+export function toggleModal() {
+	return {
+		type: actions.TOGGLE_MODAL
+	};
 }

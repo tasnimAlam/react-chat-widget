@@ -1,3 +1,4 @@
 export const TOGGLE_CHAT = "BEHAVIOR/TOGGLE_CHAT";
 export const SELECTED_TAB = "BEHAVIOR/SELECTED_TAB";
 export const GET_CARDS = "CARD/GET_CARDS";
+export const TOGGLE_MODAL = "CARD/TOGGLE_MODAL";

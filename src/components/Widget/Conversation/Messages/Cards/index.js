@@ -31,6 +31,9 @@ function showModal(cards) {
 			)}
 		>
 			<Modal>
+				<button className="rcw-close-btn" onClick={() => {}}>
+					x
+				</button>
 				<h1>{card.title}</h1>
 				<div>{card.body}</div>
 				<div>{card.body}</div>
@@ -47,6 +50,7 @@ const Cards = props => {
 	}, []);
 
 	let isClicked = true;
+	//	console.log(props.displayModal);
 
 	return (
 		<Fragment>
@@ -57,7 +61,8 @@ const Cards = props => {
 
 function mapStateToProps(state) {
 	return {
-		cards: state.card.get("cards")
+		cards: state.card.get("cards"),
+		displayModal: state.card.get("showModal")
 	};
 }
 

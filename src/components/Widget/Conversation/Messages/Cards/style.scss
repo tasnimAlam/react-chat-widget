@@ -18,4 +18,11 @@
 }
 .popup-content {
 	width: 90% !important;
+	margin-top: 10px !important;
+	border-radius: 10px;
+}
+
+.rcw-close-btn {
+	position: fixed;
+	right: 20px;
 }
