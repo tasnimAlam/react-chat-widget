@@ -26,3 +26,10 @@ export function toggleModal(open) {
 		open: open
 	};
 }
+
+export function setModalData(data) {
+	return {
+		type: actions.MODAL_DATA,
+		data: data
+	};
+}
