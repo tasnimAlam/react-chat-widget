@@ -8,7 +8,6 @@ import Modal from "./Modal";
 import "./style.scss";
 
 const url = "https://notificationx.com/wp-json/wp/v2/docs";
-const link = "https://www.google.com";
 
 function showCards(cards) {
 	return cards.map(card => <Card key={card.id} {...card} />);
@@ -47,21 +46,21 @@ function showModal(cards, modalData, displayModal, dispatch) {
 				);
 			})}
 
-			<Popup
-				modal
-				open={displayModal}
-				onClose={() => dispatch(toggleModal(false))}
-			>
-				<Modal>
-					<button
-						className="rcw-close-btn"
-						onClick={() => dispatch(toggleModal(false))}
-					>
-						x
-					</button>
-					<div dangerouslySetInnerHTML={{ __html: modalData }}></div>
-				</Modal>
-			</Popup>
+			<div className="rcw-modal-wrapper">
+				<Popup
+					modal
+					open={displayModal}
+					onClose={() => dispatch(toggleModal(false))}
+				>
+					<Modal>
+						<button
+							className="rcw-close-btn"
+							onClick={() => dispatch(toggleModal(false))}
+						></button>
+						<div dangerouslySetInnerHTML={{ __html: modalData }}></div>
+					</Modal>
+				</Popup>
+			</div>
 		</Fragment>
 	);
 }
@@ -71,7 +70,6 @@ const Cards = props => {
 		axios.get(url).then(res => props.dispatch(getCards(res.data)));
 	}, []);
 
-	let isClicked = true;
 	const { cards, modalData, displayModal, dispatch } = props;
 
 	return (
