@@ -35,8 +35,8 @@ function showModal(cards, modalData, displayModal, dispatch) {
 							></h3>
 						</div>
 						<div className="rcw-card-body-wrapper">
-							<span className="rcw-card-body"></span>
 							<div
+								className="rcw-card-body"
 								dangerouslySetInnerHTML={{
 									__html: card.excerpt.rendered
 								}}
