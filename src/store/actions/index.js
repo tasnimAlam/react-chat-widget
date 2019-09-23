@@ -20,8 +20,9 @@ export function getCards(cards) {
 	};
 }
 
-export function toggleModal() {
+export function toggleModal(open) {
 	return {
-		type: actions.TOGGLE_MODAL
+		type: actions.TOGGLE_MODAL,
+		open: open
 	};
 }

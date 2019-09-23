@@ -10,8 +10,8 @@ const initialState = Map({
 const cardRaducer = {
 	[actionTypes.GET_CARDS]: (state, { cards }) =>
 		state.update("cards", data => cards),
-	[actionTypes.TOGGLE_MODAL]: state =>
-		state.update("showModal", showModal => !showModal)
+	[actionTypes.TOGGLE_MODAL]: (state, { open }) =>
+		state.update("showModal", showModal => open)
 };
 
 export default (state = initialState, action) =>

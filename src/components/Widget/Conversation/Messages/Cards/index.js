@@ -2,7 +2,7 @@ import React, { useEffect, Fragment } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
 import Popup from "reactjs-popup";
-import { getCards } from "@actions";
+import { getCards, toggleModal } from "@actions";
 import Card from "./Card";
 import Modal from "./Modal";
 import "./style.scss";
@@ -14,13 +14,15 @@ function showCards(cards) {
 	return cards.map(card => <Card key={card.id} {...card} />);
 }
 
-function showModal(cards) {
-	return cards.map(card => (
-		<Popup
-			key={card.id}
-			modal
-			trigger={open => (
-				<div className="rcw-card-link" onClick={open}>
+function showModal(cards, displayModal, dispatch) {
+	return (
+		<Fragment>
+			{cards.map(card => (
+				<div
+					key={card.id}
+					className="rcw-card-link"
+					onClick={() => dispatch(toggleModal(true))}
+				>
 					<div className="rcw-card-title-wrapper">
 						<span className="rcw-card-title">{card.title}</span>
 					</div>
@@ -28,35 +30,37 @@ function showModal(cards) {
 						<span className="rcw-card-body">{card.body}</span>
 					</div>
 				</div>
-			)}
-		>
-			<Modal>
-				<button className="rcw-close-btn" onClick={() => {}}>
-					x
-				</button>
-				<h1>{card.title}</h1>
-				<div>{card.body}</div>
-				<div>{card.body}</div>
-				<div>{card.body}</div>
-				<div>{card.body}</div>
-				<div>{card.body}</div>
-			</Modal>
-		</Popup>
-	));
+			))}
+
+			<Popup
+				modal
+				open={displayModal}
+				onClose={() => dispatch(toggleModal(false))}
+			>
+				<Modal>
+					<button
+						className="rcw-close-btn"
+						onClick={() => dispatch(toggleModal(false))}
+					>
+						x
+					</button>
+					<h1>INSIDE MODAL</h1>
+					<div>INSIDE MODAL</div>
+				</Modal>
+			</Popup>
+		</Fragment>
+	);
 }
+
 const Cards = props => {
 	useEffect(() => {
 		axios.get(url).then(res => props.dispatch(getCards(res.data)));
 	}, []);
 
 	let isClicked = true;
-	//	console.log(props.displayModal);
+	const { cards, displayModal, dispatch } = props;
 
-	return (
-		<Fragment>
-			{isClicked ? showModal(props.cards) : showCards(props.cards)}
-		</Fragment>
-	);
+	return <Fragment>{showModal(cards, displayModal, dispatch)}</Fragment>;
 };
 
 function mapStateToProps(state) {
