@@ -3,22 +3,18 @@ import { connect } from "react-redux";
 import axios from "axios";
 import Popup from "reactjs-popup";
 import SearchBar from "material-ui-search-bar";
+
 import { getCards, toggleModal, setModalData, setSearchText } from "@actions";
 import Card from "./Card";
 import Modal from "./Modal";
+import { URL } from "../../../../../utils/constants";
 import "./style.scss";
-
-const url = "https://notificationx.com/wp-json/wp/v2/docs";
-
-function showCards(cards) {
-	return cards.map(card => <Card key={card.id} {...card} />);
-}
 
 function filterCards(cards, searchText) {
 	return cards.filter(
 		card =>
-			card.title.rendered.includes(searchText) ||
-			card.content.rendered.includes(searchText)
+			card.title.rendered.toLowerCase().includes(searchText.toLowerCase()) ||
+			card.content.rendered.toLowerCase().includes(searchText.toLowerCase())
 	);
 }
 
@@ -87,8 +83,10 @@ function ShowModal({
 
 			<div className="rcw-search-bar">
 				<SearchBar
-					value=""
-					onRequestSearch={value => dispatch(setSearchText(value))}
+					value={searchText}
+					onRequestSearch={value => {
+						dispatch(setSearchText(value));
+					}}
 				/>
 			</div>
 		</Fragment>
@@ -97,8 +95,8 @@ function ShowModal({
 
 const Cards = props => {
 	useEffect(() => {
-		axios.get(url).then(res => props.dispatch(getCards(res.data)));
-	}, []);
+		axios.get(URL).then(res => props.dispatch(getCards(res.data)));
+	}, [props.searchText]);
 
 	return <ShowModal {...props} />;
 };

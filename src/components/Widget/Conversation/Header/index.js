@@ -1,6 +1,6 @@
 import React from "react";
 import Tab from "./Tab";
-import { TABS } from "../../../../utils/contants";
+import { TABS } from "../../../../utils/constants";
 import "./style.scss";
 
 const Header = props => {

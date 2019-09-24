@@ -5,7 +5,8 @@ import * as actionTypes from "../actions/actionTypes";
 const initialState = Map({
 	cards: [],
 	showModal: false,
-	modalData: ""
+	modalData: "",
+	searchText: ""
 });
 
 const cardRaducer = {
