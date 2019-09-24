@@ -68,6 +68,7 @@
 
 .rcw-messages-container {
 	height: 65vh !important;
+	margin-bottom: 50px;
 }
 
 .rcw-card-title {
@@ -76,4 +77,9 @@
 
 .rcw-card-body {
 	color: #929292;
+}
+.rcw-search-bar {
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
 }

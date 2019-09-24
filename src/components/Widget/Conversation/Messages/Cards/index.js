@@ -2,6 +2,7 @@ import React, { useEffect, Fragment } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
 import Popup from "reactjs-popup";
+import SearchBar from "material-ui-search-bar";
 import { getCards, toggleModal, setModalData } from "@actions";
 import Card from "./Card";
 import Modal from "./Modal";
@@ -60,6 +61,14 @@ function showModal(cards, modalData, displayModal, dispatch) {
 						<div dangerouslySetInnerHTML={{ __html: modalData }}></div>
 					</Modal>
 				</Popup>
+			</div>
+
+			<div className="rcw-search-bar">
+				<SearchBar
+					value=""
+					onChange={() => console.log("none")}
+					onRequestSearch={() => console.log("kajsdfa")}
+				/>
 			</div>
 		</Fragment>
 	);
