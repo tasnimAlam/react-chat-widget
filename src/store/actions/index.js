@@ -16,7 +16,8 @@ export function onTabSelect(tabName) {
 export function getCards(cards) {
 	return {
 		type: actions.GET_CARDS,
-		cards: cards
+		cards: cards,
+		loading: false
 	};
 }
 
@@ -38,5 +39,11 @@ export function setSearchText(text) {
 	return {
 		type: actions.SEARCH_TEXT,
 		text: text
+	};
+}
+
+export function toggleLoading() {
+	return {
+		type: actions.TOGGLE_LOADING
 	};
 }

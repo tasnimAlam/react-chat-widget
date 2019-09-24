@@ -1,14 +1,36 @@
-import React, { forwardRef } from "react";
+import React, { useEffect, Fragment } from "react";
+import { connect } from "react-redux";
+import { toggleModal, setModalData } from "@actions";
 
-const Card = props => (
-	<div className="rcw-card-link">
-		<div className="rcw-card-title-wrapper">
-			<span className="rcw-card-title">{props.title}</span>
-		</div>
-		<div className="rcw-card-body-wrapper">
-			<span className="rcw-card-body">{props.body}</span>
-		</div>
-	</div>
-);
+const Card = props => {
+	const { id, title, content, excerpt, dispatch } = props;
 
-export default Card;
+	return (
+		<div
+			className="rcw-card-link"
+			onClick={() => {
+				dispatch(toggleModal(true));
+				dispatch(setModalData(content.rendered));
+			}}
+		>
+			<div className="rcw-card-title-wrapper">
+				<h3
+					className="rcw-card-title"
+					dangerouslySetInnerHTML={{
+						__html: title.rendered
+					}}
+				></h3>
+			</div>
+			<div className="rcw-card-body-wrapper">
+				<div
+					className="rcw-card-body"
+					dangerouslySetInnerHTML={{
+						__html: excerpt.rendered
+					}}
+				></div>
+			</div>
+		</div>
+	);
+};
+
+export default connect()(Card);

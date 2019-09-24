@@ -3,8 +3,16 @@ import { connect } from "react-redux";
 import axios from "axios";
 import Popup from "reactjs-popup";
 import SearchBar from "material-ui-search-bar";
+import Search from "./Search";
+import CardLoader from "./CardLoader";
 
-import { getCards, toggleModal, setModalData, setSearchText } from "@actions";
+import {
+	getCards,
+	toggleModal,
+	setModalData,
+	setSearchText,
+	toggleLoading
+} from "@actions";
 import Card from "./Card";
 import Modal from "./Modal";
 import { URL } from "../../../../../utils/constants";
@@ -18,9 +26,14 @@ function filterCards(cards, searchText) {
 	);
 }
 
+function showPlaceholder() {
+	return Array.from([1, 2, 3]).map((item, index) => <CardLoader key={index} />);
+}
+
 function ShowModal({
 	allCards,
 	searchText,
+	loading,
 	modalData,
 	displayModal,
 	dispatch
@@ -31,39 +44,16 @@ function ShowModal({
 	if (searchText) {
 		cards = filterCards(cards, searchText);
 	}
-	console.log(cards);
+
+	if (loading) {
+		return showPlaceholder();
+	}
 
 	return (
 		<Fragment>
-			{cards.map(card => {
-				return (
-					<div
-						key={card.id}
-						className="rcw-card-link"
-						onClick={() => {
-							dispatch(toggleModal(true));
-							dispatch(setModalData(card.content.rendered));
-						}}
-					>
-						<div className="rcw-card-title-wrapper">
-							<h3
-								className="rcw-card-title"
-								dangerouslySetInnerHTML={{
-									__html: card.title.rendered
-								}}
-							></h3>
-						</div>
-						<div className="rcw-card-body-wrapper">
-							<div
-								className="rcw-card-body"
-								dangerouslySetInnerHTML={{
-									__html: card.excerpt.rendered
-								}}
-							></div>
-						</div>
-					</div>
-				);
-			})}
+			{cards.map(card => (
+				<Card key={card.id} {...card} />
+			))}
 
 			<div className="rcw-modal-wrapper">
 				<Popup
@@ -81,22 +71,24 @@ function ShowModal({
 				</Popup>
 			</div>
 
-			<div className="rcw-search-bar">
-				<SearchBar
-					value={searchText}
-					onRequestSearch={value => {
-						dispatch(setSearchText(value));
-					}}
-				/>
-			</div>
+			<Search />
 		</Fragment>
 	);
 }
 
 const Cards = props => {
 	useEffect(() => {
-		axios.get(URL).then(res => props.dispatch(getCards(res.data)));
+		// Get cards from server
+		let url = `${URL}&search=${props.searchText}`;
+		axios.get(url).then(res => props.dispatch(getCards(res.data)));
 	}, [props.searchText]);
+
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			props.dispatch(toggleLoading());
+		}, 2000);
+		return () => clearTimeout(timer);
+	}, []);
 
 	return <ShowModal {...props} />;
 };
@@ -106,7 +98,8 @@ function mapStateToProps(state) {
 		allCards: state.card.get("cards"),
 		displayModal: state.card.get("showModal"),
 		modalData: state.card.get("modalData"),
-		searchText: state.card.get("searchText")
+		searchText: state.card.get("searchText"),
+		loading: state.card.get("loading")
 	};
 }
 
