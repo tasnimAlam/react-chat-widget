@@ -14,7 +14,9 @@ const cardRaducer = {
 	[actionTypes.TOGGLE_MODAL]: (state, { open }) =>
 		state.update("showModal", showModal => open),
 	[actionTypes.MODAL_DATA]: (state, { data }) =>
-		state.update("modalData", modalData => data)
+		state.update("modalData", modalData => data),
+	[actionTypes.SEARCH_TEXT]: (state, { text }) =>
+		state.update("searchText", searchText => text)
 };
 
 export default (state = initialState, action) =>

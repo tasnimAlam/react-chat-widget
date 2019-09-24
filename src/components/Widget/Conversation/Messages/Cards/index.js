@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import axios from "axios";
 import Popup from "reactjs-popup";
 import SearchBar from "material-ui-search-bar";
-import { getCards, toggleModal, setModalData } from "@actions";
+import { getCards, toggleModal, setModalData, setSearchText } from "@actions";
 import Card from "./Card";
 import Modal from "./Modal";
 import "./style.scss";
@@ -14,7 +14,29 @@ function showCards(cards) {
 	return cards.map(card => <Card key={card.id} {...card} />);
 }
 
-function showModal(cards, modalData, displayModal, dispatch) {
+function filterCards(cards, searchText) {
+	return cards.filter(
+		card =>
+			card.title.rendered.includes(searchText) ||
+			card.content.rendered.includes(searchText)
+	);
+}
+
+function ShowModal({
+	allCards,
+	searchText,
+	modalData,
+	displayModal,
+	dispatch
+}) {
+	let cards = [...allCards];
+
+	// Filter cards on search
+	if (searchText) {
+		cards = filterCards(cards, searchText);
+	}
+	console.log(cards);
+
 	return (
 		<Fragment>
 			{cards.map(card => {
@@ -66,8 +88,7 @@ function showModal(cards, modalData, displayModal, dispatch) {
 			<div className="rcw-search-bar">
 				<SearchBar
 					value=""
-					onChange={() => console.log("none")}
-					onRequestSearch={() => console.log("kajsdfa")}
+					onRequestSearch={value => dispatch(setSearchText(value))}
 				/>
 			</div>
 		</Fragment>
@@ -79,18 +100,15 @@ const Cards = props => {
 		axios.get(url).then(res => props.dispatch(getCards(res.data)));
 	}, []);
 
-	const { cards, modalData, displayModal, dispatch } = props;
-
-	return (
-		<Fragment>{showModal(cards, modalData, displayModal, dispatch)}</Fragment>
-	);
+	return <ShowModal {...props} />;
 };
 
 function mapStateToProps(state) {
 	return {
-		cards: state.card.get("cards"),
+		allCards: state.card.get("cards"),
 		displayModal: state.card.get("showModal"),
-		modalData: state.card.get("modalData")
+		modalData: state.card.get("modalData"),
+		searchText: state.card.get("searchText")
 	};
 }
 

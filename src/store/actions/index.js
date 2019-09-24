@@ -33,3 +33,10 @@ export function setModalData(data) {
 		data: data
 	};
 }
+
+export function setSearchText(text) {
+	return {
+		type: actions.SEARCH_TEXT,
+		text: text
+	};
+}
