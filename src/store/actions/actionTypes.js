@@ -5,3 +5,4 @@ export const TOGGLE_MODAL = "CARD/TOGGLE_MODAL";
 export const MODAL_DATA = "CARD/MODAL_DATA";
 export const SEARCH_TEXT = "CARD/SEARCH_TEXT";
 export const TOGGLE_LOADING = "CARD/TOGGLE_LOADING";
+export const CHANGE_TEXT = "CARD/CHANGE_TEXT";

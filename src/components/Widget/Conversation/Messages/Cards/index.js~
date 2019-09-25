@@ -80,21 +80,18 @@ const Cards = props => {
 	useEffect(() => {
 		// Get cards from server
 		let url = `${URL}&search=${props.searchText}`;
+		let data = fetchData(url);
+
+		console.log(data);
 		axios.get(url).then(res => props.dispatch(getCards(res.data)));
 	}, [props.searchText]);
 
 	useEffect(() => {
 		const timer = setTimeout(() => {
 			props.dispatch(toggleLoading(false));
-		}, 1000);
+		}, 2000);
 		return () => clearTimeout(timer);
 	}, []);
-
-	useEffect(() => {
-		console.log(props.inputText);
-		axios.get(URL).then(res => props.dispatch(getCards(res.data)));
-		props.dispatch(setSearchText(""));
-	}, [props.inputText]);
 
 	return <ShowModal {...props} />;
 };
@@ -105,8 +102,7 @@ function mapStateToProps(state) {
 		displayModal: state.card.get("showModal"),
 		modalData: state.card.get("modalData"),
 		searchText: state.card.get("searchText"),
-		loading: state.card.get("loading"),
-		inputText: state.card.get("changedText")
+		loading: state.card.get("loading")
 	};
 }
 

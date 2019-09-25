@@ -48,3 +48,10 @@ export function toggleLoading(load) {
 		load: load
 	};
 }
+
+export function onTextChange(text) {
+	return {
+		type: actions.CHANGE_TEXT,
+		text: text
+	};
+}
