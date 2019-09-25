@@ -18,7 +18,11 @@ import Modal from "./Modal";
 import { URL } from "../../../../../utils/constants";
 import "./style.scss";
 
-const NotFound = () => <h2>Not Found</h2>;
+const NotFound = () => (
+	<div className="rcw-not-found">
+		<h2>Not Found</h2>
+	</div>
+);
 
 function filterCards(cards, searchText) {
 	return cards.filter(
