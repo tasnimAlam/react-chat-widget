@@ -77,10 +77,11 @@ function ShowModal({
 }
 
 const Cards = props => {
+	
 	useEffect(() => {
 		// Get cards from server
 		let url = `${URL}&search=${props.searchText}`;
-		axios.get(url).then(res => props.dispatch(getCards(res.data)));
+		fetchData(url);
 	}, [props.searchText]);
 
 	useEffect(() => {
@@ -91,10 +92,13 @@ const Cards = props => {
 	}, []);
 
 	useEffect(() => {
-		console.log(props.inputText);
-		axios.get(URL).then(res => props.dispatch(getCards(res.data)));
+		fetchData(URL);
 		props.dispatch(setSearchText(""));
 	}, [props.inputText]);
+
+	const fetchData = url => {
+		axios.get(url).then(res => props.dispatch(getCards(res.data)));
+	};
 
 	return <ShowModal {...props} />;
 };
