@@ -18,6 +18,8 @@ import Modal from "./Modal";
 import { URL } from "../../../../../utils/constants";
 import "./style.scss";
 
+const NotFound = () => <h2>Not Found</h2>;
+
 function filterCards(cards, searchText) {
 	return cards.filter(
 		card =>
@@ -30,54 +32,20 @@ function showPlaceholder() {
 	return Array.from([1, 2, 3]).map((item, index) => <CardLoader key={index} />);
 }
 
-function ShowModal({
-	allCards,
-	searchText,
-	loading,
-	displayModal,
-	modalData,
-	dispatch
-}) {
-	let cards = [...allCards];
-	let [isOpen, toggleModal] = useState(false);
-
-	// Filter cards on search
-	if (searchText) {
-		cards = filterCards(cards, searchText);
-	}
-
-	if (loading) {
-		return showPlaceholder();
-	}
-
-	return (
-		<Fragment>
-			{cards.map(card => (
-				<Card
-					key={card.id}
-					{...card}
-					toggleModal={toggleModal}
-					setModalData={setModalData}
-					dispatch={dispatch}
-				/>
-			))}
-			<Modal data={modalData} isOpen={isOpen} toggleModal={toggleModal} />
-			<Search searchText={searchText} />
-		</Fragment>
-	);
-}
-
 const Cards = props => {
+	const { dispatch, allCards, searchText, modalData, inputText } = props;
 	const [loading, setLoading] = useState(true);
+	const [isOpen, toggleModal] = useState(false);
+
 	const fetchData = url => {
-		axios.get(url).then(res => props.dispatch(getCards(res.data)));
+		axios.get(url).then(res => dispatch(getCards(res.data)));
 	};
 
 	useEffect(() => {
 		// Get cards from server
-		let url = `${URL}&search=${props.searchText}`;
+		let url = `${URL}&search=${searchText}`;
 		fetchData(url);
-	}, [props.searchText]);
+	}, [searchText]);
 
 	useEffect(() => {
 		// Set loading effect
@@ -85,14 +53,44 @@ const Cards = props => {
 			setLoading(false);
 		}, 1000);
 		return () => clearTimeout(timer);
-	}, []);
+	}, [loading]);
 
 	useEffect(() => {
 		fetchData(URL);
-		props.dispatch(setSearchText(""));
-	}, [props.inputText]);
+		dispatch(setSearchText(""));
+	}, [inputText]);
 
-	return <ShowModal {...props} loading={loading} />;
+	let cards = [...allCards];
+
+	// Filter cards on search
+	if (searchText) {
+		cards = filterCards(cards, searchText);
+	}
+
+	// Show placeholder while loading
+	if (loading) {
+		return showPlaceholder();
+	}
+
+	return (
+		<Fragment>
+			{cards.length > 0 ? (
+				cards.map(card => (
+					<Card
+						key={card.id}
+						{...card}
+						toggleModal={toggleModal}
+						setModalData={setModalData}
+						dispatch={dispatch}
+					/>
+				))
+			) : (
+				<NotFound />
+			)}
+			<Modal data={modalData} isOpen={isOpen} toggleModal={toggleModal} />
+			<Search setLoading={setLoading} searchText={searchText} />
+		</Fragment>
+	);
 };
 
 function mapStateToProps(state) {
