@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
 import Popup from "reactjs-popup";
@@ -34,11 +34,12 @@ function ShowModal({
 	allCards,
 	searchText,
 	loading,
-	modalData,
 	displayModal,
+	modalData,
 	dispatch
 }) {
 	let cards = [...allCards];
+	let [isOpen, toggleModal] = useState(false);
 
 	// Filter cards on search
 	if (searchText) {
@@ -52,32 +53,26 @@ function ShowModal({
 	return (
 		<Fragment>
 			{cards.map(card => (
-				<Card key={card.id} {...card} />
+				<Card
+					key={card.id}
+					{...card}
+					toggleModal={toggleModal}
+					setModalData={setModalData}
+					dispatch={dispatch}
+				/>
 			))}
-
-			<div className="rcw-modal-wrapper">
-				<Popup
-					modal
-					open={displayModal}
-					onClose={() => dispatch(toggleModal(false))}
-				>
-					<Modal>
-						<button
-							className="rcw-close-btn"
-							onClick={() => dispatch(toggleModal(false))}
-						></button>
-						<div dangerouslySetInnerHTML={{ __html: modalData }}></div>
-					</Modal>
-				</Popup>
-			</div>
-
-			<Search />
+			<Modal data={modalData} isOpen={isOpen} toggleModal={toggleModal} />
+			<Search searchText={searchText} />
 		</Fragment>
 	);
 }
 
 const Cards = props => {
-	
+	const [loading, setLoading] = useState(true);
+	const fetchData = url => {
+		axios.get(url).then(res => props.dispatch(getCards(res.data)));
+	};
+
 	useEffect(() => {
 		// Get cards from server
 		let url = `${URL}&search=${props.searchText}`;
@@ -85,8 +80,9 @@ const Cards = props => {
 	}, [props.searchText]);
 
 	useEffect(() => {
+		// Set loading effect
 		const timer = setTimeout(() => {
-			props.dispatch(toggleLoading(false));
+			setLoading(false);
 		}, 1000);
 		return () => clearTimeout(timer);
 	}, []);
@@ -96,11 +92,7 @@ const Cards = props => {
 		props.dispatch(setSearchText(""));
 	}, [props.inputText]);
 
-	const fetchData = url => {
-		axios.get(url).then(res => props.dispatch(getCards(res.data)));
-	};
-
-	return <ShowModal {...props} />;
+	return <ShowModal {...props} loading={loading} />;
 };
 
 function mapStateToProps(state) {
@@ -109,7 +101,6 @@ function mapStateToProps(state) {
 		displayModal: state.card.get("showModal"),
 		modalData: state.card.get("modalData"),
 		searchText: state.card.get("searchText"),
-		loading: state.card.get("loading"),
 		inputText: state.card.get("changedText")
 	};
 }

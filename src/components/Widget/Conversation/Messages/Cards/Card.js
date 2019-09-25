@@ -3,13 +3,21 @@ import { connect } from "react-redux";
 import { toggleModal, setModalData } from "@actions";
 
 const Card = props => {
-	const { id, title, content, excerpt, dispatch } = props;
+	const {
+		id,
+		title,
+		content,
+		excerpt,
+		toggleModal,
+		setModalData,
+		dispatch
+	} = props;
 
 	return (
 		<div
 			className="rcw-card-link"
 			onClick={() => {
-				dispatch(toggleModal(true));
+				toggleModal(true);
 				dispatch(setModalData(content.rendered));
 			}}
 		>

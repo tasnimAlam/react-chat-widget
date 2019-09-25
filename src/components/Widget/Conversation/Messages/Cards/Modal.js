@@ -1,7 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
+import Popup from "reactjs-popup";
 
-const Modal = ({ children }) => (
-	<div className="rcw-modal-wrapper">{children}</div>
-);
+const Modal = ({ data, isOpen, toggleModal }) => {
+	return (
+		<div className="rcw-modal-wrapper">
+			<Popup modal open={isOpen}>
+				<div>
+					<button
+						className="rcw-close-btn"
+						onClick={() => toggleModal(false)}
+					></button>
+					<div dangerouslySetInnerHTML={{ __html: data }}></div>
+				</div>
+			</Popup>
+		</div>
+	);
+};
 
 export default Modal;
