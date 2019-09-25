@@ -42,8 +42,9 @@ export function setSearchText(text) {
 	};
 }
 
-export function toggleLoading() {
+export function toggleLoading(load) {
 	return {
-		type: actions.TOGGLE_LOADING
+		type: actions.TOGGLE_LOADING,
+		load: load
 	};
 }

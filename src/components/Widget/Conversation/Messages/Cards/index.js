@@ -85,7 +85,7 @@ const Cards = props => {
 
 	useEffect(() => {
 		const timer = setTimeout(() => {
-			props.dispatch(toggleLoading());
+			props.dispatch(toggleLoading(false));
 		}, 2000);
 		return () => clearTimeout(timer);
 	}, []);
