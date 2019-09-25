@@ -4,7 +4,7 @@ import Popup from "reactjs-popup";
 const Modal = ({ data, isOpen, toggleModal }) => {
 	return (
 		<div className="rcw-modal-wrapper">
-			<Popup modal open={isOpen}>
+			<Popup className="rcw-modal-popup" modal open={isOpen}>
 				<div>
 					<button
 						className="rcw-close-btn"
