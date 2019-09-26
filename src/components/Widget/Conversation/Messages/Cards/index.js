@@ -32,6 +32,44 @@ function filterCards(cards, searchText) {
 	);
 }
 
+function sortByTitle(cards, searchText) {
+	if (cards.length === 0) return [];
+	let updatedCards = [];
+
+	cards.map(card => {
+		if (card.title.rendered.toLowerCase().includes(searchText.toLowerCase())) {
+			updatedCards.push(card);
+		}
+	});
+
+	cards.map(card => {
+		if (
+			card.content.rendered.toLowerCase().includes(searchText.toLowerCase()) &&
+			!updatedCards.includes(card)
+		) {
+			updatedCards.push(card);
+		}
+	});
+
+	return updatedCards;
+}
+
+function setTextColor(string, searchText) {
+	let query = new RegExp("(" + searchText + ")", "gim");
+	return string.replace(query, "<span class='rcw-highlight'>$1</span>");
+}
+
+function addHighlight(cards, searchText) {
+	let updatedCards = [...cards];
+	updatedCards.map(card => {
+		card.title.rendered = setTextColor(card.title.rendered, searchText);
+		card.content.rendered = setTextColor(card.content.rendered, searchText);
+		card.excerpt.rendered = setTextColor(card.excerpt.rendered, searchText);
+	});
+
+	return updatedCards;
+}
+
 function showPlaceholder() {
 	return Array.from([1, 2, 3]).map((item, index) => <CardLoader key={index} />);
 }
@@ -66,9 +104,11 @@ const Cards = props => {
 
 	let cards = [...allCards];
 
-	// Filter cards on search
-	if (searchText) {
+	// Filter, sort and highlight  on search
+	if (searchText && cards.length) {
 		cards = filterCards(cards, searchText);
+		cards = addHighlight(cards, searchText);
+		cards = sortByTitle(cards, searchText);
 	}
 
 	// Show placeholder while loading
