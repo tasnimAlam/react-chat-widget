@@ -21,8 +21,18 @@
 	right: 8px !important;
 	background: rgba(255, 255, 255, 1) !important;
 	border-radius: 10px !important;
-	animation: fadeIn 200ms;
+	animation: fadeIn 200ms, scale 300ms;
+	transition: all 200ms ease-in-out;
 	box-shadow: 0px 0px 8px 2px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes scale {
+	from {
+		transform: scale(0);
+	}
+	to {
+		transform: scale(1);
+	}
 }
 
 @-moz-keyframes fadeIn {
